@@ -91,6 +91,11 @@ public:
         p->next = n;
         size++;
     }
+
+    node * get_head(){
+        // Complexity O(1)
+        return head;
+    }
 };
 
 int main(){
