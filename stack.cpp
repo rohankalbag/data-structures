@@ -23,7 +23,7 @@ struct stack{
     ~stack(){
         //destructor
         while(top){
-            pop();
+            pop(false);
         }
     }
 
@@ -43,7 +43,7 @@ struct stack{
         }
     }
     
-    void pop(){
+    void pop(bool userdef = true){
         if(isEmpty()){
             cout<<"Stack Underflow !"<<endl;
         }
@@ -52,7 +52,8 @@ struct stack{
             stack_node* temp = top;
             top = top->next;
             delete(temp);
-            cout<<popped_val<<" was popped"<<endl;
+            if(userdef)
+                cout<<popped_val<<" was popped"<<endl;
         }
     }
 
@@ -83,8 +84,6 @@ int main(){
     x.push(2);
     x.push(3);
     x.print();
-    x.peek();
-    x.pop();
     x.peek();
     x.pop();
     x.peek();
