@@ -50,19 +50,35 @@ public:
     }
 
     void insert_at_head(int x){
-        node* n = new node(x);
-        n->next = head;
-        head->prev = n;
-        head = n;
-        size++;
+        if(head){
+            node* n = new node(x);
+            n->next = head;
+            head->prev = n;
+            head = n;
+            size++;
+        }
+        else{
+            node* n = new node(x);
+            head = n;
+            tail = n;
+            size++;
+        }
     }
 
     void insert_at_tail(int x){
-        node* n = new node(x);
-        tail->next = n;
-        n->prev = tail;
-        tail = n;
-        size++;
+        if(tail){
+            node* n = new node(x);
+            tail->next = n;
+            n->prev = tail;
+            tail = n;
+            size++;
+        }
+        else{
+            node* n = new node(x);
+            head = n;
+            tail = n;
+            size++;
+        }
     }
     
     node* get_head(){
@@ -78,10 +94,19 @@ int main(){
     dllist dll;
     dll.insert_at_head(1);
     dll.print();
+    cout<<dll.get_head()->val<<endl;
+    cout<<dll.get_tail()->val<<endl;
     dll.insert_at_head(3);
     dll.print();
+    cout<<dll.get_head()->val<<endl;
+    cout<<dll.get_tail()->val<<endl;
     dll.insert_at_head(4);
     dll.print();
+    cout<<dll.get_head()->val<<endl;
+    cout<<dll.get_tail()->val<<endl;
     dll.insert_at_tail(2);
-    cout<<dll.length()<<endl;
+    dll.print();
+    cout<<dll.get_head()->val<<endl;
+    cout<<dll.get_tail()->val<<endl;
+    cout<<"Length: "<<dll.length()<<endl;
 }

@@ -22,8 +22,9 @@ public:
     ~sllist(){
         node *n = head;
         while(n!=NULL){
-            delete n;
+            node * temp = n; 
             n = n->next;
+            delete(temp);
         }
     }
 
@@ -99,5 +100,18 @@ public:
 };
 
 int main(){
-    return 0;
+    sllist sll;
+    sll.insert_value(1);
+    sll.print();
+    cout<<sll.get_head()->val<<endl;
+    sll.insert_value(3);
+    sll.print();
+    cout<<sll.get_head()->val<<endl;
+    sll.insert_value(4);
+    sll.print();
+    cout<<sll.get_head()->val<<endl;
+    sll.insert_value(2);
+    sll.print();
+    cout<<sll.get_head()->val<<endl;
+    cout<<"Length: "<<sll.length()<<endl;
 }
