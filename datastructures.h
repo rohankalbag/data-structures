@@ -2,15 +2,12 @@
 using namespace std;
 
 //SLL
-
 struct sll_node{
-//nodes
     int val;
     sll_node * next;
 };
 
 struct sllist{
-// singly linked list of nodes
 private:
     sll_node * head;
     int size;
@@ -29,12 +26,80 @@ public:
             delete(temp);
         }
     }
+
+    int length(){
+        // Complexity O(1)
+        return size;
+    }
+
+    void print(){
+        //Complexity O(n)
+        sll_node *n = head;
+        while(n!=NULL){
+            cout << "[" << n->val << "]" << "-";
+            n = n->next;
+        }
+        cout<<">"<<endl;
+    }
+    void insert_value(int k){
+        /* creates a new node pointing to head with
+        value as k
+        */
+        // Complexity O(1)
+        sll_node *newnode = new sll_node();
+        newnode->next = head;
+        newnode->val = k;
+        head = newnode;
+        size++;
+    }
+    sll_node * search_with_val(int val){
+        /* returns the pointer to the first node with
+        value equal to val
+        */
+        // Complexity O(n)
+        sll_node *n = head;
+        while(n!=NULL){
+            if(n->val==val){
+                return n;
+            }
+            n = n->next;
+        }
+    }
+
+    void delete_node(sll_node* p){
+        /* deletes the node with pointer p and joins the node
+        prev of p to the one next of p.
+        */
+        // Complexity O(n)
+        sll_node *prev = head;
+        while(prev->next != p){
+            prev = prev->next;
+        }
+        prev->next = p->next;
+        delete p;
+        size--;
+    }
+
+    void insert_after_node(sll_node *p, int k){
+        /* inserts a node after node pointed by p 
+        which holds the value k
+        */
+        // Complexity O(n)
+        sll_node* n = new sll_node();
+        n->val = k;
+        n->next = p->next;
+        p->next = n;
+        size++;
+    }
+
+    sll_node * get_head(){
+        // Complexity O(1)
+        return head;
+    }
 };
 
 //DLL
-
 struct dll_node{
-//nodes
     int val;
     dll_node * next;
     dll_node * prev;
@@ -46,7 +111,7 @@ struct dll_node{
     }
 };
 
-struct dllist{
+struct dllist{  
 private:
     int size;
     dll_node * head;
@@ -68,7 +133,6 @@ public:
     }
 
     void print(){
-        //Complexity O(n)
         dll_node *n = head;
         while(n!=NULL){
             cout << "[" << n->val << "]" << "=";
@@ -124,7 +188,6 @@ public:
 
 //Stack
 struct stack_node{
-    //same as node in SLL
     int val;
     stack_node * next;
 
@@ -138,14 +201,15 @@ struct stack{
     stack_node * top;
     
     stack(){
-        //constructor
         top = NULL;
     }
 
-    ~stack(){
-        //destructor
-        while(top){
-            pop(false);
+    ~stack(){        
+        stack_node*n = top;
+        while(n){
+            stack_node*temp = n;
+            n = n->next;
+            delete(temp);
         }
     }
 
@@ -165,7 +229,7 @@ struct stack{
         }
     }
     
-    void pop(bool userdef = true){
+    void pop(){
         if(isEmpty()){
             cout<<"Stack Underflow !"<<endl;
         }
@@ -174,18 +238,16 @@ struct stack{
             stack_node* temp = top;
             top = top->next;
             delete(temp);
-            if(userdef)
-                cout<<popped_val<<" was popped"<<endl;
+            cout<<popped_val<<" was popped"<<endl;
         }
     }
 
-    void peek(){
+    int peek(){
         if(isEmpty()){
             cout<<"Stack Underflow !"<<endl;
-            return;
         }
         else{
-            cout<<"The topmost value is "<<top->val<<endl;
+            return top->val;
         }
     }
 
@@ -193,9 +255,106 @@ struct stack{
         stack_node* temp = top;
         cout<<"top ->"<<" ";
         while(temp){
-            cout<<temp->val<<"|";
+            if(temp->next!=NULL)
+                cout<<temp->val<<"|";
+            else
+                cout<<temp->val;
             temp = temp->next;
         }
         cout<<"]"<<endl;
     }
+};
+
+//Queue
+struct queue_node{
+    int val;
+    queue_node * next;
+
+    queue_node(int x){
+        val = x;
+        next = NULL;
+    }
+};
+
+struct queue{
+    queue_node * front;
+    queue_node * rear;
+    int size;
+    
+    queue(){
+        front = NULL;
+        rear = NULL;
+        size = 0;
+    }
+
+    ~queue(){
+        queue_node * n = front;
+        while(n){
+            queue_node * temp = n;
+            n = n->next;
+            delete(temp);
+        }
+    }
+    
+    void enqueue(int x){
+        if(size==0){
+            queue_node *n = new queue_node(x);
+            front = n;
+            rear = n;
+            size++;
+        }
+        else{
+            queue_node *n = new queue_node(x);
+            rear->next = n;
+            rear = n;
+            size++;
+        }
+        cout<<x<<" was added to the queue"<<endl;
+    }
+
+    void dequeue(){
+        if(size==0)
+            cout<<"Queue underflow"<<endl;
+        else{
+            queue_node* temp = front;
+            cout<<temp->val<<" was popped from the queue"<<endl;
+            front = front->next;
+            delete(temp);
+            size--;
+        }
+        if(front==NULL)
+            rear=NULL;
+    }
+
+    int peek(){
+        if(size==0)
+            cout<<"Queue underflow"<<endl;
+        else
+            return front->val;
+    }
+
+    bool isEmpty(){
+        if(size==0)
+            return true;
+        else
+            return false;
+    }
+
+    void print(){
+        if(size==0)
+            cout<<"-><-"<<endl;
+        else{
+            cout<<"f -> ";
+            queue_node * n = front;
+            while(n){
+                if(n==rear)
+                    cout<<n->val;
+                else
+                    cout<<n->val<<" | ";
+                n = n->next;
+            }
+            cout<<" <- r"<<endl;
+        }
+    }
+
 };

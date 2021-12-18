@@ -22,8 +22,11 @@ struct stack{
 
     ~stack(){
         //destructor
-        while(top){
-            pop(false);
+        stack_node*n = top;
+        while(n){
+            stack_node*temp = n;
+            n = n->next;
+            delete(temp);
         }
     }
 
@@ -43,7 +46,7 @@ struct stack{
         }
     }
     
-    void pop(bool userdef = true){
+    void pop(){
         if(isEmpty()){
             cout<<"Stack Underflow !"<<endl;
         }
@@ -52,18 +55,16 @@ struct stack{
             stack_node* temp = top;
             top = top->next;
             delete(temp);
-            if(userdef)
-                cout<<popped_val<<" was popped"<<endl;
+            cout<<popped_val<<" was popped"<<endl;
         }
     }
 
-    void peek(){
+    int peek(){
         if(isEmpty()){
             cout<<"Stack Underflow !"<<endl;
-            return;
         }
         else{
-            cout<<"The topmost value is "<<top->val<<endl;
+            return top->val;
         }
     }
 
@@ -71,7 +72,10 @@ struct stack{
         stack_node* temp = top;
         cout<<"top ->"<<" ";
         while(temp){
-            cout<<temp->val<<"|";
+            if(temp->next!=NULL)
+                cout<<temp->val<<"|";
+            else
+                cout<<temp->val;
             temp = temp->next;
         }
         cout<<"]"<<endl;
@@ -81,12 +85,16 @@ struct stack{
 int main(){
     stack x;
     x.push(1);
+    x.print();
     x.push(2);
+    x.print();
     x.push(3);
     x.print();
-    x.peek();
+    cout<<x.peek()<<" is the topmost element on peeking"<<endl;
     x.pop();
-    x.peek();
+    x.print();
+    cout<<x.peek()<<" is the topmost element on peeking"<<endl;
     x.pop();
-    x.peek();
+    x.print();
+    cout<<x.peek()<<" is the topmost element on peeking"<<endl;
 }
