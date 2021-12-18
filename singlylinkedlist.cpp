@@ -101,17 +101,31 @@ public:
 
 int main(){
     sllist sll;
-    sll.insert_value(1);
-    sll.print();
-    cout<<sll.get_head()->val<<endl;
-    sll.insert_value(3);
-    sll.print();
-    cout<<sll.get_head()->val<<endl;
-    sll.insert_value(4);
-    sll.print();
-    cout<<sll.get_head()->val<<endl;
-    sll.insert_value(2);
-    sll.print();
-    cout<<sll.get_head()->val<<endl;
-    cout<<"Length: "<<sll.length()<<endl;
+    bool stop = false;
+    while(!stop){
+        cout<<"Enter 1 to insert value into SLL"<<endl;
+        cout<<"Enter 2 to display SLL"<<endl;
+        cout<<"Enter 3 to display length of SLL"<<endl;
+        cout<<"Enter 0 to end program"<<endl;
+        int n;
+        cin>>n;
+        if(n==1){
+            cout<<"Enter value to insert: "<<endl;
+            int c;
+            cin>>c;
+            sll.insert_value(c);
+        }
+        else if(n==2){
+            sll.print();
+        }
+        else if(n==3){
+            cout<<"Length: "<<sll.length()<<endl;
+        }
+        else if(n==0){
+            stop = true;
+        }
+        else{
+            cout<<"Invalid Entry !"<<endl;
+        }
+    }
 }

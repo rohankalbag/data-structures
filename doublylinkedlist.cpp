@@ -92,21 +92,38 @@ public:
 
 int main(){
     dllist dll;
-    dll.insert_at_head(1);
-    dll.print();
-    cout<<dll.get_head()->val<<endl;
-    cout<<dll.get_tail()->val<<endl;
-    dll.insert_at_head(3);
-    dll.print();
-    cout<<dll.get_head()->val<<endl;
-    cout<<dll.get_tail()->val<<endl;
-    dll.insert_at_head(4);
-    dll.print();
-    cout<<dll.get_head()->val<<endl;
-    cout<<dll.get_tail()->val<<endl;
-    dll.insert_at_tail(2);
-    dll.print();
-    cout<<dll.get_head()->val<<endl;
-    cout<<dll.get_tail()->val<<endl;
-    cout<<"Length: "<<dll.length()<<endl;
+    bool stop = false;
+    while(!stop){
+        cout<<"Enter 1 to insert value into head of DLL"<<endl;
+        cout<<"Enter 2 to display DLL"<<endl;
+        cout<<"Enter 3 to display length of DLL"<<endl;
+        cout<<"Enter 4 to insert value into tail of DLL"<<endl;
+        cout<<"Enter 0 to end program"<<endl;
+        int n;
+        cin>>n;
+        if(n==1){
+            cout<<"Enter value to insert: "<<endl;
+            int c;
+            cin>>c;
+            dll.insert_at_head(c);
+        }
+        else if(n==2){
+            dll.print();
+        }
+        else if(n==3){
+            cout<<"Length: "<<dll.length()<<endl;
+        }
+        else if(n==0){
+            stop = true;
+        }
+        else if(n==4){
+            cout<<"Enter value to insert: "<<endl;
+            int c;
+            cin>>c;
+            dll.insert_at_tail(c);
+        }
+        else{
+            cout<<"Invalid Entry !"<<endl;
+        }
+    }
 }
