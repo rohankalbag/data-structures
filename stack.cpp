@@ -84,17 +84,35 @@ struct stack{
 
 int main(){
     stack x;
-    x.push(1);
-    x.print();
-    x.push(2);
-    x.print();
-    x.push(3);
-    x.print();
-    cout<<x.peek()<<" is the topmost element on peeking"<<endl;
-    x.pop();
-    x.print();
-    cout<<x.peek()<<" is the topmost element on peeking"<<endl;
-    x.pop();
-    x.print();
-    cout<<x.peek()<<" is the topmost element on peeking"<<endl;
+    bool stop = false;
+    while(!stop){
+        cout<<"Enter 1 to push value into stack"<<endl;
+        cout<<"Enter 2 to display stack"<<endl;
+        cout<<"Enter 3 to peek the topmost value"<<endl;
+        cout<<"Enter 4 to pop the topmost value"<<endl;
+        cout<<"Enter 0 to end program"<<endl;
+        int n;
+        cin>>n;
+        if(n==1){
+            cout<<"Enter value to insert: "<<endl;
+            int c;
+            cin>>c;
+            x.push(c);
+        }
+        else if(n==2){
+            x.print();
+        }
+        else if(n==3){
+            cout<<x.peek()<<" was the topmost value"<<endl;
+        }
+        else if(n==4){
+            x.pop();
+        }
+        else if(n==0){
+            stop = true;
+        }
+        else{
+            cout<<"Invalid Entry !"<<endl;
+        }
+    }
 }

@@ -52,7 +52,7 @@ struct queue{
             cout<<"Queue underflow"<<endl;
         else{
             queue_node* temp = front;
-            cout<<temp->val<<" was popped from the queue"<<endl;
+            cout<<temp->val<<" was removed from the queue"<<endl;
             front = front->next;
             delete(temp);
             size--;
@@ -97,16 +97,35 @@ struct queue{
 
 int main(){
     queue x;
-    x.print();
-    x.enqueue(10);
-    x.print();
-    x.enqueue(5);
-    x.print();
-    x.enqueue(7);
-    x.print();
-    cout<<"Element at front is "<<x.peek()<<endl;
-    x.dequeue();
-    x.print();
-    x.dequeue();
-    x.print();
+    bool stop = false;
+    while(!stop){
+        cout<<"Enter 1 to enqueue value into rear of queue"<<endl;
+        cout<<"Enter 2 to display queue"<<endl;
+        cout<<"Enter 3 to peek the front most value"<<endl;
+        cout<<"Enter 4 to pop the front most value"<<endl;
+        cout<<"Enter 0 to end program"<<endl;
+        int n;
+        cin>>n;
+        if(n==1){
+            cout<<"Enter value to insert: "<<endl;
+            int c;
+            cin>>c;
+            x.enqueue(c);
+        }
+        else if(n==2){
+            x.print();
+        }
+        else if(n==3){
+            cout<<x.peek()<<" was the frontmost value"<<endl;
+        }
+        else if(n==4){
+            x.dequeue();
+        }
+        else if(n==0){
+            stop = true;
+        }
+        else{
+            cout<<"Invalid Entry !"<<endl;
+        }
+    }
 }
