@@ -139,27 +139,50 @@ struct deque{
 
 int main(){
     deque x;
-    x.enqueue_front(10);
-    x.print();
-    x.enqueue_front(5);
-    x.print();
-    x.enqueue_front(3);
-    x.print();
-    x.enqueue_rear(6);
-    x.print();
-    x.enqueue_rear(7);
-    x.print();
-    cout<<"Element at front is "<<x.peek_front()<<endl;
-    cout<<"Element at rear is "<<x.peek_back()<<endl;
-    x.dequeue_front();
-    x.print();
-    x.dequeue_rear();
-    x.print();
-    x.dequeue_front();
-    x.print();
-    x.dequeue_rear();
-    x.print();
-    x.dequeue_front();
-    x.print();
-    x.peek_back();
+    bool stop = false;
+    while(!stop){
+        cout<<"Enter 1 to enqueue value into rear of deque"<<endl;
+        cout<<"Enter 2 to enqueue value into rear of deque"<<endl;
+        cout<<"Enter 3 to display deque"<<endl;
+        cout<<"Enter 4 to peek the front most value"<<endl;
+        cout<<"Enter 5 to peek the rear most value"<<endl;
+        cout<<"Enter 6 to pop the front most value"<<endl;
+        cout<<"Enter 7 to pop the rear most value"<<endl;
+        cout<<"Enter 0 to end program"<<endl;
+        int n;
+        cin>>n;
+        if(n==1){
+            cout<<"Enter value to insert: "<<endl;
+            int c;
+            cin>>c;
+            x.enqueue_front(c);
+        }
+        else if(n==2){
+            cout<<"Enter value to insert: "<<endl;
+            int c;
+            cin>>c;
+            x.enqueue_rear(c);
+        }
+        else if(n==3){
+            x.print();
+        }
+        else if(n==4){
+            cout<<x.peek_front()<<" was the frontmost value"<<endl;
+        }
+        else if(n==5){
+            cout<<x.peek_back()<<" was the rearmost value"<<endl;
+        }
+        else if(n==6){
+            x.dequeue_front();
+        }
+        else if(n==7){
+            x.dequeue_rear();
+        }
+        else if(n==0){
+            stop = true;
+        }
+        else{
+            cout<<"Invalid Entry !"<<endl;
+        }
+    }
 }
