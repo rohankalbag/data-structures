@@ -317,7 +317,7 @@ struct queue{
             cout<<"Queue underflow"<<endl;
         else{
             queue_node* temp = front;
-            cout<<temp->val<<" was popped from the queue"<<endl;
+            cout<<temp->val<<" was removed from the queue"<<endl;
             front = front->next;
             delete(temp);
             size--;
@@ -416,7 +416,7 @@ struct deque{
             cout<<"Deque underflow"<<endl;
         else{
             queue_node* temp = front;
-            cout<<temp->val<<" was popped from the front of deque"<<endl;
+            cout<<temp->val<<" was removed from the front of deque"<<endl;
             front = front->next;
             delete(temp);
             size--;
@@ -433,7 +433,7 @@ struct deque{
             while(temp->next!=rear){
                 temp = temp->next;
             }
-            cout<<(temp->next)->val<<" was popped from the rear of deque"<<endl;
+            cout<<(temp->next)->val<<" was removed from the rear of deque"<<endl;
             rear = temp;
             temp = temp->next;
             delete(temp);
