@@ -500,7 +500,8 @@ struct bt_node{
 
 struct bs_tree{
     bt_node* root;
-    
+    int size;
+
     bs_tree(){
         root = NULL;
     }
@@ -508,6 +509,7 @@ struct bs_tree{
     void insert(bt_node* &node, int val){
         if(node==NULL){
             node = new bt_node(val);
+            size++;
         }
         else{
             if(val==node->val){
@@ -545,5 +547,47 @@ struct bs_tree{
 
     bool find(int k){
         return find(root,k);
+    }
+
+    void inorder(bt_node* &node){
+        if(node==NULL){
+            return;
+        }
+        inorder(node->left);
+        cout<<node->val<<" ";
+        inorder(node->right);
+    }
+
+    void preorder(bt_node* &node){
+        if(node==NULL){
+            return;
+        }
+        cout<<node->val<<" ";
+        preorder(node->left);
+        preorder(node->right); 
+    }
+
+    void postorder(bt_node* &node){
+        if(node==NULL){
+            return;
+        }
+        postorder(node->left);
+        postorder(node->right);
+        cout<<node->val<<" ";
+    }
+
+    void inorder(){
+        inorder(root);
+        cout<<endl;
+    }
+
+    void preorder(){
+        preorder(root);
+        cout<<endl;
+    }
+
+    void postorder(){
+        postorder(root);
+        cout<<endl;
     }
 };
