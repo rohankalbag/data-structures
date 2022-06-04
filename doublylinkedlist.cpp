@@ -102,27 +102,33 @@ public:
     }
 
     T remove_at_head(){
-        T val = head->val;
-        node<T> * n = head;
-        (head->next)->prev = nullptr;
-        head = head->next;
-        if(len==1)
-            tail = nullptr;
-        delete n;
-        len--;
-        return val;
+        if(len>0){
+            T val = head->val;
+            node<T> * n = head;
+            (head->next)->prev = nullptr;
+            head = head->next;
+            if(len==1)
+                tail = nullptr;
+            delete n;
+            len--;
+            return val;
+        }
+        cout<<"No value to be removed!"<<endl;
     }
 
     T remove_at_tail(){
-        T val = tail->val;
-        node<T> * n = tail;
-        (tail->prev)->next = nullptr;
-        tail = tail->prev;
-        if(len==1)
-            head = nullptr;
-        delete n;
-        len--;
-        return val;
+        if(len>0){
+            T val = tail->val;
+            node<T> * n = tail;
+            (tail->prev)->next = nullptr;
+            tail = tail->prev;
+            if(len==1)
+                head = nullptr;
+            delete n;
+            len--;
+            return val;
+        }
+        cout<<"No value to be removed!"<<endl;
     }
 };
 

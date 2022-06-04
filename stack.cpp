@@ -9,12 +9,11 @@ template <typename T> struct node{
 
 template <typename T> struct sllist{
 // singly linked list of nodes
-private:
+
     node<T> * head;
     node<T> * tail;
     int len;
 
-public:
     sllist(){
         head = nullptr;
         tail = nullptr;
@@ -66,17 +65,14 @@ public:
 
     T remove_at_head(){
         /*removes element at the head*/
-        if(len > 0){
-            node<T> * n = head;
-            T val = head->val;
-            head = head->next;
-            if(len==1)
-                tail = nullptr;
-            delete n;
-            len--;
-            return val;
-        }
-        cout<<"No element to be removed!"<<endl;
+        node<T> * n = head;
+        T val = head->val;
+        head = head->next;
+        if(len==1)
+            tail = nullptr;
+        delete n;
+        len--;
+        return val;
     }
 
     node<T> * search_with_val(T val){
@@ -94,15 +90,62 @@ public:
     }
 };
 
+template <typename T> struct stack{
+//stack based on singly linked list
+private:
+    node<T>* top;
+    sllist<T>* list;
+public:
+    stack(){
+        sllist<T> s;
+        list = new sllist<T>();
+        top = nullptr;
+    }
+
+    ~stack(){
+        delete list;
+    }
+
+    int size(){
+        return list->size();
+    }
+
+    void push(T val){
+        list->insert_at_head(val);
+        top = list->head;
+    }
+
+    bool isempty(){
+        return (list->size()==0);
+    }
+
+    T pop(){
+        if(isempty())
+            cout<<"No element in stack!"<<endl;
+        else{
+            T val = list->remove_at_head();
+            top = list->head;
+            return val;
+        }
+    }
+
+    T peek(){
+        if(isempty())
+            cout<<"No element in stack!"<<endl;
+        else
+            return top->val;
+    }
+
+};
+
 int main(){
-    sllist<int> s;
-    s.insert_at_head(4);
-    s.insert_at_head(5);
-    s.insert_at_head(7);
-    s.insert_at_head(8);
-    s.print();
-    cout<<s.remove_at_head()<<endl;
-    cout<<s.search_with_val(7)->next->val<<endl;
-    s.print();
-    return 0;
+    stack<char> s;
+    s.push('a');
+    s.push('b');
+    cout<<s.pop()<<endl;
+    cout<<s.peek()<<endl;
+    s.push('w');
+    cout<<s.pop()<<endl;
+    cout<<s.pop()<<endl;
+    cout<<s.size()<<endl;
 }
