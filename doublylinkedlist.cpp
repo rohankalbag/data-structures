@@ -101,12 +101,28 @@ public:
         }
     }
 
-    node<T>* get_head(){
-        return head;
+    T remove_at_head(){
+        T val = head->val;
+        node<T> * n = head;
+        (head->next)->prev = nullptr;
+        head = head->next;
+        if(len==1)
+            tail = nullptr;
+        delete n;
+        len--;
+        return val;
     }
 
-    node<T>* get_tail(){
-        return tail;
+    T remove_at_tail(){
+        T val = tail->val;
+        node<T> * n = tail;
+        (tail->prev)->next = nullptr;
+        tail = tail->prev;
+        if(len==1)
+            head = nullptr;
+        delete n;
+        len--;
+        return val;
     }
 };
 
@@ -119,5 +135,8 @@ int main(){
     cout<<d.size()<<endl;
     d.fprint();
     d.rprint();
+    cout<<d.remove_at_head()<<endl;
+    cout<<d.remove_at_tail()<<endl;
+    d.fprint();
     return 0;
 }
