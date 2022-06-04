@@ -9,12 +9,10 @@ template <typename T> struct node{
 
 template <typename T> struct sllist{
 // singly linked list of nodes
-private:
     node<T> * head;
     node<T> * tail;
     int len;
 
-public:
     sllist(){
         head = nullptr;
         tail = nullptr;
@@ -47,7 +45,7 @@ public:
         /* creates a new node pointing to head with
         value as k
         */
-        if(len==1){
+        if(len==0){
             node<T> *newnode = new node<T>();
             newnode->next = head;
             newnode->val = k;
@@ -60,6 +58,24 @@ public:
             newnode->next = head;
             newnode->val = k;
             head = newnode;
+            len++;
+        }
+    }
+
+    void insert_at_tail(T k){
+        if(len==0){
+            node<T> *newnode = new node<T>();
+            newnode->next = tail;
+            newnode->val = k;
+            head = newnode;
+            tail = newnode;
+            len++;
+        }
+        else{
+            node<T> *newnode = new node<T>();
+            tail->next = newnode;
+            newnode->val = k;
+            tail = newnode;
             len++;
         }
     }
@@ -99,10 +115,13 @@ int main(){
     s.insert_at_head(4);
     s.insert_at_head(5);
     s.insert_at_head(7);
+    s.insert_at_tail(10);
     s.insert_at_head(8);
     s.print();
     cout<<s.remove_at_head()<<endl;
     cout<<s.search_with_val(7)->next->val<<endl;
     s.print();
+    cout<<s.head->val<<endl;
+    cout<<s.tail->val<<endl;
     return 0;
 }

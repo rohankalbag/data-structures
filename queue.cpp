@@ -9,6 +9,7 @@ template <typename T> struct node{
 
 template <typename T> struct sllist{
 // singly linked list of nodes
+
     node<T> * head;
     node<T> * tail;
     int len;
@@ -82,17 +83,14 @@ template <typename T> struct sllist{
 
     T remove_at_head(){
         /*removes element at the head*/
-        if(len > 0){
-            node<T> * n = head;
-            T val = head->val;
-            head = head->next;
-            if(len==1)
-                tail = nullptr;
-            delete n;
-            len--;
-            return val;
-        }
-        cout<<"No element to be removed!"<<endl;
+        node<T> * n = head;
+        T val = head->val;
+        head = head->next;
+        if(len==1)
+            tail = nullptr;
+        delete n;
+        len--;
+        return val;
     }
 
     node<T> * search_with_val(T val){
@@ -110,18 +108,19 @@ template <typename T> struct sllist{
     }
 };
 
-template <typename T> struct stack{
-//stack based on singly linked list
-    node<T>* top;
-    sllist<T>* list;
+template <typename T> struct queue{
+    //queue implemented using a singly linked list
+    node<T> * front;
+    node<T> * back;
+    sllist<T> * list;
 
-    stack(){
-        sllist<T> s;
+    queue(){
+        front = nullptr;
+        back = nullptr;
         list = new sllist<T>();
-        top = nullptr;
     }
 
-    ~stack(){
+    ~queue(){
         delete list;
     }
 
@@ -129,42 +128,33 @@ template <typename T> struct stack{
         return list->size();
     }
 
-    void push(T val){
-        list->insert_at_head(val);
-        top = list->head;
+    void enqueue(T k){
+        list->insert_at_tail(k);
+        front = list->head;
+        back = list->tail;
     }
 
-    bool isempty(){
-        return (list->size()==0);
-    }
-
-    T pop(){
-        if(isempty())
-            cout<<"No element in stack!"<<endl;
-        else{
+    T dequeue(){
+        if(size() > 0){
             T val = list->remove_at_head();
-            top = list->head;
+            front = list->head;
+            back = list->tail;
             return val;
         }
-    }
-
-    T peek(){
-        if(isempty())
-            cout<<"No element in stack!"<<endl;
-        else
-            return top->val;
+        cout<<"No element to dequeue!"<<endl;
     }
 
 };
 
 int main(){
-    stack<char> s;
-    s.push('a');
-    s.push('b');
-    cout<<s.pop()<<endl;
-    cout<<s.peek()<<endl;
-    s.push('w');
-    cout<<s.pop()<<endl;
-    cout<<s.pop()<<endl;
-    cout<<s.size()<<endl;
+    queue<int> q;
+    q.enqueue(4);
+    q.enqueue(5);
+    q.enqueue(7);
+    cout<<q.dequeue()<<endl;
+    cout<<q.dequeue()<<endl;
+    q.enqueue(10);
+    cout<<q.size()<<endl;
+    cout<<q.front->val<<endl;
+    cout<<q.back->val<<endl;
 }

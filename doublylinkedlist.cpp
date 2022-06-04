@@ -15,11 +15,10 @@ template <typename T> struct node{
 };
 
 template <typename T> struct dllist{
-private:
     int len;
     node<T> * head;
     node<T> * tail;
-public:
+
     dllist(){
         head = nullptr;
         tail = nullptr;
@@ -143,6 +142,8 @@ int main(){
     d.rprint();
     cout<<d.remove_at_head()<<endl;
     cout<<d.remove_at_tail()<<endl;
+    cout<<d.head->val<<endl;
+    cout<<d.tail->val<<endl;
     d.fprint();
     return 0;
 }
