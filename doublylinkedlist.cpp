@@ -1,129 +1,123 @@
 #include <iostream>
 using namespace std;
 
-struct node{
+template <typename T> struct node{
 //nodes
-    int val;
-    node * next;
-    node * prev;
+    T val;
+    node<T> * next;
+    node<T> * prev;
 
-    node(int x){
-        next=NULL;
-        prev=NULL;
+    node(T x){
+        next=nullptr;
+        prev=nullptr;
         val = x;
     }
 };
 
-struct dllist{
+template <typename T> struct dllist{
 private:
-    int size;
-    node * head;
-    node * tail;
+    int len;
+    node<T> * head;
+    node<T> * tail;
 public:
     dllist(){
-        head = NULL;
-        tail = NULL;
-        size = 0;
+        head = nullptr;
+        tail = nullptr;
+        len = 0;
     }
 
     ~dllist(){
-        node* n = head;
+        node<T>* n = head;
         while(n){
-            node* temp = n;
+            node<T>* temp = n;
             n = n->next;
             delete(temp);
         }
     }
 
-    void print(){
-        //Complexity O(n)
-        node *n = head;
-        while(n!=NULL){
+    void fprint(){
+        /*forward traversal*/
+        //Time Complexity O(n)
+        cout<<"<=";
+        node<T> *n = head;
+        while(n){
             cout << "[" << n->val << "]" << "=";
             n = n->next;
         }
         cout<<">"<<endl;
     }
 
-    int length(){
-        return size;
+    void rprint(){
+        /*reverse traversal*/
+        //Time Complexity O(n)
+        cout<<"<=";
+        node<T> *n = tail;
+        while(n){
+            cout << "[" << n->val << "]" << "=";
+            n = n->prev;
+        }
+        cout<<">"<<endl;
     }
 
-    void insert_at_head(int x){
+    int size(){
+        return len;
+    }
+
+    void insert_at_head(T x){
         if(head){
-            node* n = new node(x);
+            node<T>* n = new node<T>(x);
             n->next = head;
+            n->prev = nullptr;
             head->prev = n;
             head = n;
-            size++;
+            len++;
         }
         else{
-            node* n = new node(x);
+            node<T>* n = new node<T>(x);
+            n->next = nullptr;
+            n->prev = nullptr;
             head = n;
             tail = n;
-            size++;
+            len++;
         }
     }
 
-    void insert_at_tail(int x){
+    void insert_at_tail(T x){
         if(tail){
-            node* n = new node(x);
+            node<T>* n = new node<T>(x);
             tail->next = n;
             n->prev = tail;
+            n->next = nullptr;
             tail = n;
-            size++;
+            len++;
         }
         else{
-            node* n = new node(x);
+            node<T>* n = new node<T>(x);
+            n->next = nullptr;
+            n->prev = nullptr;
             head = n;
             tail = n;
-            size++;
+            len++;
         }
     }
-    
-    node* get_head(){
+
+    node<T>* get_head(){
         return head;
     }
 
-    node* get_tail(){
+    node<T>* get_tail(){
         return tail;
     }
 };
 
 int main(){
-    dllist dll;
-    bool stop = false;
-    while(!stop){
-        cout<<"Enter 1 to insert value into head of DLL"<<endl;
-        cout<<"Enter 2 to display DLL"<<endl;
-        cout<<"Enter 3 to display length of DLL"<<endl;
-        cout<<"Enter 4 to insert value into tail of DLL"<<endl;
-        cout<<"Enter 0 to end program"<<endl;
-        int n;
-        cin>>n;
-        if(n==1){
-            cout<<"Enter value to insert: "<<endl;
-            int c;
-            cin>>c;
-            dll.insert_at_head(c);
-        }
-        else if(n==2){
-            dll.print();
-        }
-        else if(n==3){
-            cout<<"Length: "<<dll.length()<<endl;
-        }
-        else if(n==0){
-            stop = true;
-        }
-        else if(n==4){
-            cout<<"Enter value to insert: "<<endl;
-            int c;
-            cin>>c;
-            dll.insert_at_tail(c);
-        }
-        else{
-            cout<<"Invalid Entry !"<<endl;
-        }
-    }
+    dllist<char> d;
+    d.insert_at_head('a');
+    d.insert_at_tail('b');
+    d.insert_at_head('c');
+    d.insert_at_tail('d');
+    cout<<d.size()<<endl;
+    d.fprint();
+    d.rprint();
+    return 0;
 }

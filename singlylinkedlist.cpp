@@ -1,131 +1,119 @@
 #include <iostream>
 using namespace std;
 
-struct node{
+template <typename T> struct node{
 //nodes
-    int val;
-    node * next;
+    T val;
+    node<T> * next;
 };
 
-struct sllist{
+template <typename T> struct sllist{
 // singly linked list of nodes
 private:
-    node * head;
-    int size;
+    node<T> * head;
+    int len;
 
 public:
     sllist(){
-        head = NULL;
-        size=0;
+        head = nullptr;
+        len = 0;
     }
 
     ~sllist(){
-        node *n = head;
-        while(n!=NULL){
-            node * temp = n; 
+        node<T> *n = head;
+        while(n){
+            node<T> * temp = n;
             n = n->next;
             delete(temp);
         }
     }
 
-    int length(){
-        // Complexity O(1)
-        return size;
+    int size(){
+        // Time Complexity O(1)
+        return len;
     }
 
     void print(){
-        //Complexity O(n)
-        node *n = head;
-        while(n!=NULL){
+        //Time Complexity O(n)
+        node<T> *n = head;
+        while(n){
             cout << "[" << n->val << "]" << "-";
             n = n->next;
         }
         cout<<">"<<endl;
     }
-    void insert_value(int k){
+    void insert_value(T k){
         /* creates a new node pointing to head with
         value as k
         */
-        // Complexity O(1)
-        node *newnode = new node();
+        // Time Complexity O(1)
+        node<T> *newnode = new node<T>();
         newnode->next = head;
         newnode->val = k;
         head = newnode;
-        size++;
+        len++;
     }
-    node * search_with_val(int val){
+    node<T> * search_with_val(T val){
         /* returns the pointer to the first node with
         value equal to val
         */
-        // Complexity O(n)
-        node *n = head;
-        while(n!=NULL){
+        // Time Complexity O(n)
+        node<T> *n = head;
+        while(n){
             if(n->val==val){
                 return n;
             }
             n = n->next;
         }
+        return nullptr;
     }
 
-    void delete_node(node* p){
+    void delete_node(node<T>* p){
         /* deletes the node with pointer p and joins the node
         prev of p to the one next of p.
         */
-        // Complexity O(n)
-        node *prev = head;
+        // Time Complexity O(n)
+        if(p == head){
+            head = p->next;
+            delete p;
+            len--;
+            return;
+        }
+        node<T> *prev = head;
         while(prev->next != p){
             prev = prev->next;
         }
         prev->next = p->next;
         delete p;
-        size--;
+        len--;
     }
 
-    void insert_after_node(node *p, int k){
-        /* inserts a node after node pointed by p 
+    void insert_after_node(node<T> *p, T k){
+        /* inserts a node after node pointed by p
         which holds the value k
         */
-        // Complexity O(n)
-        node* n = new node();
+        // Time Complexity O(1)
+        node<T>* n = new node<T>();
         n->val = k;
         n->next = p->next;
         p->next = n;
-        size++;
+        len++;
     }
 
-    node * get_head(){
-        // Complexity O(1)
+    node<T> * get_head(){
+        // Time Complexity O(1)
         return head;
     }
 };
 
 int main(){
-    sllist sll;
-    bool stop = false;
-    while(!stop){
-        cout<<"Enter 1 to insert value into SLL"<<endl;
-        cout<<"Enter 2 to display SLL"<<endl;
-        cout<<"Enter 3 to display length of SLL"<<endl;
-        cout<<"Enter 0 to end program"<<endl;
-        int n;
-        cin>>n;
-        if(n==1){
-            cout<<"Enter value to insert: "<<endl;
-            int c;
-            cin>>c;
-            sll.insert_value(c);
-        }
-        else if(n==2){
-            sll.print();
-        }
-        else if(n==3){
-            cout<<"Length: "<<sll.length()<<endl;
-        }
-        else if(n==0){
-            stop = true;
-        }
-        else{
-            cout<<"Invalid Entry !"<<endl;
-        }
-    }
+    sllist<int> s;
+    s.insert_value(4);
+    s.insert_value(5);
+    s.insert_value(6);
+    s.insert_after_node((s.get_head())->next,7);
+    s.delete_node(s.get_head());
+    cout<<s.search_with_val(7)->next->val<<endl;
+    s.print();
+    return 0;
 }
