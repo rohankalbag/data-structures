@@ -112,33 +112,28 @@ template <typename T> struct queue{
     //queue implemented using a singly linked list
     node<T> * front;
     node<T> * back;
-    sllist<T> * list;
+    sllist<T> list;
 
     queue(){
         front = nullptr;
         back = nullptr;
-        list = new sllist<T>();
-    }
-
-    ~queue(){
-        delete list;
     }
 
     int size(){
-        return list->size();
+        return list.size();
     }
 
     void enqueue(T k){
-        list->insert_at_tail(k);
-        front = list->head;
-        back = list->tail;
+        list.insert_at_tail(k);
+        front = list.head;
+        back = list.tail;
     }
 
     T dequeue(){
         if(size() > 0){
-            T val = list->remove_at_head();
-            front = list->head;
-            back = list->tail;
+            T val = list.remove_at_head();
+            front = list.head;
+            back = list.tail;
             return val;
         }
         cout<<"No element to dequeue!"<<endl;

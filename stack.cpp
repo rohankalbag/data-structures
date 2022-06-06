@@ -113,37 +113,31 @@ template <typename T> struct sllist{
 template <typename T> struct stack{
 //stack based on singly linked list
     node<T>* top;
-    sllist<T>* list;
+    sllist<T> list;
 
     stack(){
-        sllist<T> s;
-        list = new sllist<T>();
         top = nullptr;
     }
 
-    ~stack(){
-        delete list;
-    }
-
     int size(){
-        return list->size();
+        return list.size();
     }
 
     void push(T val){
-        list->insert_at_head(val);
-        top = list->head;
+        list.insert_at_head(val);
+        top = list.head;
     }
 
     bool isempty(){
-        return (list->size()==0);
+        return (list.size()==0);
     }
 
     T pop(){
         if(isempty())
             cout<<"No element in stack!"<<endl;
         else{
-            T val = list->remove_at_head();
-            top = list->head;
+            T val = list.remove_at_head();
+            top = list.head;
             return val;
         }
     }

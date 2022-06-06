@@ -5,24 +5,16 @@ using namespace std;
 struct priorityqueue{
     //based on min binary heap
     //the heap invariant is val(parent) <= val(child)
-    vector<int>* binaryheap;
-
-    priorityqueue(){
-        binaryheap = new vector<int>();
-    }
-
-    ~priorityqueue(){
-        delete binaryheap;
-    }
+    vector<int> binaryheap;
 
     int size(){
-        return binaryheap->size();
+        return binaryheap.size();
     }
 
     bool compare(int ind1, int ind2){
         //check if heap conditional is satisfied for two indices
         //ind1 and ind2 are parent and child respectively
-        if((*binaryheap)[ind1] <= (*binaryheap)[ind2]){
+        if((binaryheap)[ind1] <= (binaryheap)[ind2]){
             return true;
         }
         return false;
@@ -30,14 +22,14 @@ struct priorityqueue{
 
     void swap(int ind1, int ind2){
         // swap values of the minheap at indices ind1 and ind2
-        int temp = (*binaryheap)[ind1];
-        (*binaryheap)[ind1] = (*binaryheap)[ind2];
-        (*binaryheap)[ind2] = temp;
+        int temp = (binaryheap)[ind1];
+        (binaryheap)[ind1] = (binaryheap)[ind2];
+        (binaryheap)[ind2] = temp;
     }
 
     int val(int ind1){
         // return value of minheap at index ind1
-        return (*binaryheap)[ind1];
+        return (binaryheap)[ind1];
     }
 
     void bubbleup(int index){
@@ -54,7 +46,7 @@ struct priorityqueue{
     void add(int m){
         // add element to priority queue following heap invariant
         // O(log(n))
-        binaryheap->push_back(m);
+        binaryheap.push_back(m);
         bubbleup(size()-1);
     }
 
@@ -89,7 +81,7 @@ struct priorityqueue{
         //O(log(n))
         swap(index, size()-1);
         int value = val(size()-1);
-        binaryheap->pop_back();
+        binaryheap.pop_back();
         int elem = val(index);
         bubbledown(index);
         if(val(index) == elem){
@@ -107,7 +99,7 @@ struct priorityqueue{
     int peek(){
         //see element with highest priority
         //O(1)
-        return (*binaryheap)[0];
+        return (binaryheap)[0];
     }
 
     bool removeVal(int value){
