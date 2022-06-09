@@ -3,6 +3,7 @@
 using namespace std;
 
 template <typename T> struct node{
+    //nodes for binary search tree
     node<T> * right;
     node<T> * left;
     T val;
@@ -15,6 +16,7 @@ template <typename T> struct node{
 };
 
 template <typename T> struct BinarySearchTree{
+    //must contain comparable data (<, >, ==) operations must exist
     int number;
     node<T> * root;
 
@@ -24,14 +26,17 @@ template <typename T> struct BinarySearchTree{
     }
 
     int size(){
+        //O(1)
         return number;
     }
 
     bool isempty(){
+        //O(1)
         return (size()==0);
     }
 
     int compare(node<T>* n, T v){
+        //O(1)
         if(v > n->val){
             return 1;
         }
@@ -44,6 +49,8 @@ template <typename T> struct BinarySearchTree{
     }
 
     bool search(node<T>* n, T v){
+        //return true if node is found with value v, else return false
+        // Average case O(log n), Worst case O(n)
        if(n == nullptr){
             return false;
        }
@@ -64,6 +71,8 @@ template <typename T> struct BinarySearchTree{
 
     void insert(T v){
         //we won't allow duplicate values
+        //insert a node into the tree with value v
+        // Average case O(log n), Worst case O(n)
         if(root==nullptr){
             add(root, v);
         }
@@ -75,6 +84,8 @@ template <typename T> struct BinarySearchTree{
     }
 
     void add(node<T>* &n, T v){
+        //insertion recursion
+        // Average case O(log n), Worst case O(n)
         if(n==nullptr){
             n = new node<T>(v);
             number++;
@@ -92,6 +103,8 @@ template <typename T> struct BinarySearchTree{
     }
 
     node<T>* getLeftMost(node<T>* n){
+        //get node with smallest value in a subtree with root as n
+        // Average case O(log n), Worst case O(n)
         while(n->left != nullptr){
             n = n->left;
         }
@@ -99,6 +112,8 @@ template <typename T> struct BinarySearchTree{
     }
 
     node<T>* remove(node<T>* &n, T v){
+        //removal recursion
+        // Average case O(log n), Worst case O(n)
         if(n == nullptr){
             return nullptr;
        }
@@ -131,6 +146,8 @@ template <typename T> struct BinarySearchTree{
     }
 
     void remove(T v){
+        //remove a node with value n
+        // Average case O(log n), Worst case O(n)
         if(search(root, v)){
             remove(root, v);
             number--;
@@ -138,6 +155,7 @@ template <typename T> struct BinarySearchTree{
     }
 
     void preorder(node<T>* n){
+        //O(n)
         if(n==nullptr){
             return;
         }
@@ -149,6 +167,7 @@ template <typename T> struct BinarySearchTree{
     }
 
     void postorder(node<T>* n){
+        //O(n)
         if(n==nullptr){
             return;
         }
@@ -160,6 +179,7 @@ template <typename T> struct BinarySearchTree{
     }
 
     void inorder(node<T>* n){
+        //O(n)
         if(n==nullptr){
             return;
         }
@@ -171,9 +191,11 @@ template <typename T> struct BinarySearchTree{
     }
 
     void levelorder(int p=0){
+        //O(n)
         //Breadth First Search
         queue<node<T>*> nodes;
         if(p==1){
+            //will be used to free memory at the end
             nodes.push(root);
             while(nodes.size()>0){
                 node<T>* n = nodes.front();
@@ -213,8 +235,6 @@ int main(){
     bst.insert(3);
     bst.insert(15);
     bst.insert(17);
-    bst.levelorder();
-    bst.remove(5);
     bst.insert(4);
 
     bst.levelorder();
@@ -225,8 +245,10 @@ int main(){
     bst.postorder(bst.root);
     cout<<endl;
 
+    bst.remove(5);
     bst.remove(3);
     bst.levelorder();
+    cout<<bst.size()<<endl;
     if(bst.search(bst.root, 4)) cout<<"YES";
     if(bst.search(bst.root, 3)) cout<<"YES";
 }
